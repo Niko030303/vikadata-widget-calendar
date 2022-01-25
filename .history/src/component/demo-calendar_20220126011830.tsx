@@ -42,9 +42,9 @@ export const DemoCalendar: React.FC = () => {
   // console.log(arr)
   for (let i = 1; i < data.length; i++) {
       if(arr[data[i]]){
-        arr[data[i]] ++ 
+        arr[datetimeArr[i]] ++ 
       }else{
-        arr[data[i]] = 1
+        arr[datetimeArr[i]] = 1
       }
     }
   // for (let i = 1; i < datetimeArr.length; i++) {

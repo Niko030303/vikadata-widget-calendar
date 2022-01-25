@@ -8,7 +8,7 @@ export const Setting: React.FC = () => {
   const [viewId, setViewId] = useCloudStorage<string>('')
   // const [fieldId, setFieldId] = useCloudStorage<string | undefined>(viewId) 
   const [fieldId, setFieldId] = useState('');
-  const [data, setData] = useCloudStorage<string>('setCalendarData', '')
+  const [data, setData] = useCloudStorage<string>('setCData')
 
   const fields = useFields(viewId);
   const records = useRecords(viewId)

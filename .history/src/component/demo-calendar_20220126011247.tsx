@@ -12,7 +12,7 @@ export const DemoCalendar: React.FC = () => {
   }
 
 
-  // const [data, setData] = useState<any>()
+  const [data, setData] = useState<any>()
   const [data] = useCloudStorage<string>('setCalendarData')
   // const data = dataJson
 
@@ -24,36 +24,29 @@ export const DemoCalendar: React.FC = () => {
 
 
   const viewId = useActiveViewId();
-  // const records = useRecords('viwSpVsG8KGw5');
+  const records = useRecords('viwSpVsG8KGw5');
 
-  // const datetimeArr = records.map(record => record?.getCellValueString('fldVAMZ1enl9v'))
+  const datetimeArr = records.map(record => record?.getCellValueString('fldVAMZ1enl9v'))
 
   // console.log(datetimeArr)
 
   let arr = new Object()
 
-  // let demo = [{
-  //   "value": 5,
-  //   "day": '2022-01-11'
-  // },{
-  //   "value": 10,
-  //   "day": '2022-01-12'
-  // }]
-  // console.log(arr)
-  for (let i = 1; i < data.length; i++) {
-      if(arr[data[i]]){
-        arr[data[i]] ++ 
+  let demo = [{
+    "value": 5,
+    "day": '2022-01-11'
+  },{
+    "value": 10,
+    "day": '2022-01-12'
+  }]
+  console.log(arr)
+  for (let i = 1; i < datetimeArr.length; i++) {
+      if(arr[datetimeArr[i]]){
+        arr[datetimeArr[i]] ++ 
       }else{
-        arr[data[i]] = 1
+        arr[datetimeArr[i]] = 1
       }
     }
-  // for (let i = 1; i < datetimeArr.length; i++) {
-  //     if(arr[datetimeArr[i]]){
-  //       arr[datetimeArr[i]] ++ 
-  //     }else{
-  //       arr[datetimeArr[i]] = 1
-  //     }
-  //   }
   // arr.forEach((item) => {
   let newArr = []
   for(let i in arr) {
