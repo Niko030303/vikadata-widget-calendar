@@ -6,10 +6,10 @@ import dataJson from '../data.json'
 
 export const DemoCalendar: React.FC = () => {
 
-  interface NewArrObj {
-    value: number;
-    day: string
-  }
+  // interface NewArrObj {
+  //   value: number;
+  //   day: string
+  // }
 
   const [data] = useCloudStorage<NewArrObj[]>('setCalendarData') // 填充的数据
   const [year, setYear] = useCloudStorage<(any)[]>('setYearList')
@@ -59,7 +59,7 @@ export const DemoCalendar: React.FC = () => {
   },[currentYear])
 
  
-      return  data ? (
+      return  dat ? (
         <>
         <ResponsiveCalendar
           data={data}

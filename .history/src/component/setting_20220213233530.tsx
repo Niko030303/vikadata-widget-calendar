@@ -7,49 +7,38 @@ import { Select } from '@vikadata/components';
 export const Setting: React.FC = () => {
 
 
-  interface NewArrObj {
-    value: number;
-    day: string
-  }
-
-
   interface YearInfoObj {
     label: string | undefined;
     value: string
   }
 
   const [isSettingOpened] = useSettingsButton();
-
   const [viewId, setViewId] = useCloudStorage<string>('') // 视图列表
-  const [fieldInfo, setFieldInfo] = useCloudStorage<any>('setFieldInfoData', []);  // 字段列表
-  const [fieldId, setFieldId] = useCloudStorage<string>('setFieldIdData', 'opt0');  // 字段列表
-  const [dateData, setDateData] = useCloudStorage<(string)[]>('setDateData',[]) // 打卡数据
+  const [fieldId, setFieldId] = useCloudStorage<string>('setFieldIdData', '');  // 字段列表
+  const [data, setData] = useCloudStorage<(string | undefined)[]>('setCalendarData',[]) // 打卡数据
   const [year, setYear] = useCloudStorage<any>('setYearList',[]) // 年份列表
-  const [value, setValue] = useCloudStorage<string>('setSelectValue', 'opt0');
+  const [value, setValue] = useCloudStorage<string>('setSelectValue', 'opt1');
+
 
   const [currentYear, setCurrentYear ] = useCloudStorage<String>('setCurrentSelectYear') // 定位哪一年
 
-  const [data, setData ] = useCloudStorage<NewArrObj[]>('setCalendarData',[]) // 填充的数据
 
   const fields = useFields(viewId);
   const records = useRecords(viewId)
 
-  // 字段下拉框，筛选出日期类型的列配置信息（列名>>列id）
-  useEffect(() => {
-    let info = fields.filter((field) => {
-      return field.type === 'DateTime' || field.type === 'CreatedTime' || field.type === 'LastModifiedTime' 
-    }).map((field) => {
-      return {
-          'label' : field.name,
-          'value' : field.id,
-        }
-    })
+  // 字段下拉框，筛选出日期类型的列
 
-    setFieldInfo(info)
-    }, [viewId])
+  let fieldInfo = fields.filter((field) => {
+    return field.type === 'DateTime' || field.type === 'CreatedTime' || field.type === 'LastModifiedTime' 
+  }).map((field) => {
+    return {
+        'label' : field.name,
+        'value' : field.id,
+      }
+  })
 
-  
-  // 当fieldId改变时，重新渲染
+
+
   useEffect(() => {
     // console.log(`viewId: ${viewId}`)
     // console.log(`fieldId: ${fieldId} changed`)
@@ -64,13 +53,13 @@ export const Setting: React.FC = () => {
       
     })
     
-    setDateData(newData)
+    setData(newData)
     
   }, [fieldId])
 
   // 年份列表
   useEffect(() => {
-    const yearNumber = dateData.map(item => {
+    const yearNumber = data.map(item => {
       return item?.slice(0, 4)|| undefined
     }).sort().reverse()
     const yearData = Array.from(new Set(yearNumber))
@@ -83,43 +72,15 @@ export const Setting: React.FC = () => {
   
     })
     setYear(yearInfo)
-    console.log("datedata:", dateData)
+    console.log("data:", data)
     
-  }, [dateData])
-
-  // 真正的数据
-  useEffect(() => {
-    let arr = {}
-    if(dateData.length !== 0){
-      for (let item of dateData) {
-        if(arr[item]){
-          arr[item] ++ 
-        }else{
-          arr[item] = 1
-        }
-      }
-      console.log('arr', arr)
-    }
-    
-  
-    let newArr: NewArrObj[]  = []
-  
-    for(let i in arr) {
-      newArr.push({
-        "value": arr[i],
-        "day": i
-      })
-    }
-
-    setData(newArr)
-  }, [dateData])
+  }, [data])
 
   // 当年份列表渲染时，更新默认值
   useEffect(() => {
     console.log('year', year)
-    if(year.length !== 0){
-      setCurrentYear(year[0]['label'])
-    }
+    if(year.length !== 0)
+    setCurrentYear(year[0]['label'])
     }, [year])
 
   useEffect(() => {

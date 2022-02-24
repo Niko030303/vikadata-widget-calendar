@@ -11,7 +11,7 @@ export const DemoCalendar: React.FC = () => {
     day: string
   }
 
-  const [data] = useCloudStorage<NewArrObj[]>('setCalendarData') // 填充的数据
+  const [data] = useCloudStorage<String>('setCalendarData') // 填充的数据
   const [year, setYear] = useCloudStorage<(any)[]>('setYearList')
   const [currentYear, setCurrentYear ] = useCloudStorage<String>('setCurrentSelectYear', '')
   const [value, setValue] = useCloudStorage<string>('setSelectValue', 'opt1');
@@ -59,7 +59,7 @@ export const DemoCalendar: React.FC = () => {
   },[currentYear])
 
  
-      return  data ? (
+      return  data. ? (
         <>
         <ResponsiveCalendar
           data={data}

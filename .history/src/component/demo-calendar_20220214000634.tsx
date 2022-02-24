@@ -59,7 +59,7 @@ export const DemoCalendar: React.FC = () => {
   },[currentYear])
 
  
-      return  data ? (
+      return  dat ? (
         <>
         <ResponsiveCalendar
           data={data}

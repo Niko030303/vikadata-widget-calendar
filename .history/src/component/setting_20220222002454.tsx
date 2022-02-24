@@ -22,7 +22,7 @@ export const Setting: React.FC = () => {
 
   const [viewId, setViewId] = useCloudStorage<string>('') // 视图列表
   const [fieldInfo, setFieldInfo] = useCloudStorage<any>('setFieldInfoData', []);  // 字段列表
-  const [fieldId, setFieldId] = useCloudStorage<string>('setFieldIdData', 'opt0');  // 字段列表
+  const [fieldId, setFieldId] = useCloudStorage<string>('setFieldIdData', '');  // 字段列表
   const [dateData, setDateData] = useCloudStorage<(string)[]>('setDateData',[]) // 打卡数据
   const [year, setYear] = useCloudStorage<any>('setYearList',[]) // 年份列表
   const [value, setValue] = useCloudStorage<string>('setSelectValue', 'opt0');
@@ -34,7 +34,7 @@ export const Setting: React.FC = () => {
   const fields = useFields(viewId);
   const records = useRecords(viewId)
 
-  // 字段下拉框，筛选出日期类型的列配置信息（列名>>列id）
+  // 字段下拉框，筛选出日期类型的列
   useEffect(() => {
     let info = fields.filter((field) => {
       return field.type === 'DateTime' || field.type === 'CreatedTime' || field.type === 'LastModifiedTime' 
@@ -49,7 +49,7 @@ export const Setting: React.FC = () => {
     }, [viewId])
 
   
-  // 当fieldId改变时，重新渲染
+  // 当fieldId改变时，重新xuan
   useEffect(() => {
     // console.log(`viewId: ${viewId}`)
     // console.log(`fieldId: ${fieldId} changed`)

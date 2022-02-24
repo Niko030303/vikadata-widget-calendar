@@ -22,7 +22,7 @@ export const Setting: React.FC = () => {
 
   const [viewId, setViewId] = useCloudStorage<string>('') // 视图列表
   const [fieldInfo, setFieldInfo] = useCloudStorage<any>('setFieldInfoData', []);  // 字段列表
-  const [fieldId, setFieldId] = useCloudStorage<string>('setFieldIdData', 'opt0');  // 字段列表
+  const [fieldId, setFieldId] = useCloudStorage<string>('setFieldIdData', '');  // 字段列表
   const [dateData, setDateData] = useCloudStorage<(string)[]>('setDateData',[]) // 打卡数据
   const [year, setYear] = useCloudStorage<any>('setYearList',[]) // 年份列表
   const [value, setValue] = useCloudStorage<string>('setSelectValue', 'opt0');

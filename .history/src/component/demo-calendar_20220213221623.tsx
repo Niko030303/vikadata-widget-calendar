@@ -11,7 +11,7 @@ export const DemoCalendar: React.FC = () => {
     day: string
   }
 
-  const [data] = useCloudStorage<NewArrObj[]>('setCalendarData') // 填充的数据
+  const [data] = useCloudStorage<(string)[]>('setCalendarData')
   const [year, setYear] = useCloudStorage<(any)[]>('setYearList')
   const [currentYear, setCurrentYear ] = useCloudStorage<String>('setCurrentSelectYear', '')
   const [value, setValue] = useCloudStorage<string>('setSelectValue', 'opt1');
@@ -29,40 +29,39 @@ export const DemoCalendar: React.FC = () => {
 //     "value": 10,
 //     "day": '2022-01-12'
 //   }]
-
-  // let arr = {}
-  // if(data.length !== 0){
-  //   for (let i = 1; i < data.length; i++) {
-  //     if(arr[data[i]]){
-  //       arr[data[i]] ++ 
-  //     }else{
-  //       arr[data[i]] = 1
-  //     }
-  //   }
-  //   console.log('arr', arr)
-  // }
+  let arr = {}
+  if(data.length){
+    for (let i = 1; i < data.length; i++) {
+      if(arr[data[i]]){
+        arr[data[i]] ++ 
+      }else{
+        arr[data[i]] = 1
+      }
+    }
+    console.log('arr', arr)
+  }
   
 
-  // let newArr: NewArrObj[]  = []
+  let newArr: NewArrObj[]  = []
 
-  // for(let i in arr) {
-  //   newArr.push({
-  //     "value": arr[i],
-  //     "day": i
-  //   })
-  // }
+  for(let i in arr) {
+    newArr.push({
+      "value": arr[i],
+      "day": i
+    })
+  }
 
-  // console.log('newArr', newArr)
+  console.log('newArr', newArr)
 
   React.useEffect(() => {
     console.log("demo中的currentYear:",currentYear)  
   },[currentYear])
 
  
-      return  data ? (
+      return  newArr ? (
         <>
         <ResponsiveCalendar
-          data={data}
+          data={newArr}
           from={`${currentYear}-01-01`}
           to={`${currentYear}-12-31`}
           emptyColor="#eeeeee"
